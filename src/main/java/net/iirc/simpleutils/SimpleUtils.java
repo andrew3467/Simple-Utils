@@ -1,9 +1,13 @@
 package net.iirc.simpleutils;
 
 import com.mojang.logging.LogUtils;
+import net.iirc.simpleutils.Fluid.ModFluidTypes;
+import net.iirc.simpleutils.Fluid.ModFluids;
 import net.iirc.simpleutils.blocks.ModBlocks;
 import net.iirc.simpleutils.blocks.entity.ModBlockEntities;
 import net.iirc.simpleutils.items.ModItems;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -28,7 +32,8 @@ public class SimpleUtils
 
         modEventBus.addListener(this::commonSetup);
 
-
+        ModFluids.register(modEventBus);
+        ModFluidTypes.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModItems.register(modEventBus);
@@ -50,7 +55,8 @@ public class SimpleUtils
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_SOAP_WATER.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_SOAP_WATER.get(), RenderType.translucent());
         }
     }
 }

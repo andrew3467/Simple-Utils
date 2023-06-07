@@ -1,5 +1,6 @@
 package net.iirc.simpleutils.blocks;
 
+import net.iirc.simpleutils.Fluid.ModFluids;
 import net.iirc.simpleutils.SimpleUtils;
 import net.iirc.simpleutils.blocks.custom.OreAmplifierBlock;
 import net.iirc.simpleutils.items.ModCreativeModeTab;
@@ -8,6 +9,8 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -28,6 +31,9 @@ public class ModBlocks {
                     .requiresCorrectToolForDrops()
                     .noOcclusion()),
             ModCreativeModeTab.SIMPLE_UTILS_TAB);
+
+    public static final RegistryObject<LiquidBlock> SOAP_WATER_BLOCK = BLOCKS.register("soap_water_block",
+            () -> new LiquidBlock(ModFluids.SOURCE_SOAP_WATER, BlockBehaviour.Properties.copy(Blocks.WATER)));
 
 
     public static void register(IEventBus eventBus){
