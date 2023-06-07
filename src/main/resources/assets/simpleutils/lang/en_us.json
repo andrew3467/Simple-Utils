@@ -1,4 +1,5 @@
 {
   "block.simpleutils.ore_amplifier": "Ore Amplifier",
-  "item.simpleutils.soap_water_bucket": "Soap Water Bucker"
+  "item.simpleutils.soap_water_bucket": "Soap Water Bucker",
+  "itemGroup.simpleutilstab": "Simple Utils"
 }
