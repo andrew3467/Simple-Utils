@@ -1,10 +1,6 @@
 {
   "replace": false,
   "values": [
-    "firstmod:zircon_ore",
-    "firstmod:deepslate_zircon_ore",
-    "firstmod:netherrack_zircon_ore",
-    "firstmod:endstone_zircon_ore",
-    "firstmod:zircon_block"
+
   ]
 }
