@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "simpleutils:block/ore_amplifier"
+    }
+  }
+}

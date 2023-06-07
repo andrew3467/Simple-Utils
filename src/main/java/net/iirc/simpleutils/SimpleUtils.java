@@ -2,6 +2,7 @@ package net.iirc.simpleutils;
 
 import com.mojang.logging.LogUtils;
 import net.iirc.simpleutils.blocks.ModBlocks;
+import net.iirc.simpleutils.blocks.entity.ModBlockEntities;
 import net.iirc.simpleutils.items.ModItems;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -28,6 +29,7 @@ public class SimpleUtils
         modEventBus.addListener(this::commonSetup);
 
 
+        ModBlockEntities.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModItems.register(modEventBus);
 
