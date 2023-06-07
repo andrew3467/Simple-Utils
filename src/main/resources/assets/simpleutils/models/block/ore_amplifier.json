@@ -1,9 +1,10 @@
 {
   "credit": "Made with Blockbench",
-  "parent": "ore_amplifier",
+  "parent": "simpelutils:block/ore_amplifier",
   "texture_size": [64, 64],
   "textures": {
-    "1": "ore_amplifier"
+    "1": "simpleutils:block/ore_amplifier",
+    "particle": "simpleutils:block/ore_amplifier"
   },
   "elements": [
     {
