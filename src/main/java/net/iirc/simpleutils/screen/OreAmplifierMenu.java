@@ -11,7 +11,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
-import org.jetbrains.annotations.Nullable;
 
 public class OreAmplifierMenu extends AbstractContainerMenu {
     public final OreAmplifierBlockEntity blockEntity;
@@ -20,12 +19,12 @@ public class OreAmplifierMenu extends AbstractContainerMenu {
 
     //Constructors
     public OreAmplifierMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
-        this(id, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
+        this(id, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(8));
     }
 
     public OreAmplifierMenu(int id, Inventory inv, BlockEntity entity, ContainerData data) {
         super(ModMenuTypes.ORE_AMPLIFIER_MENU.get(), id);
-        checkContainerSize(inv, 3);
+        checkContainerSize(inv, 8);
         blockEntity = (OreAmplifierBlockEntity) entity;
         this.level = inv.player.level;
         this.data = data;
@@ -34,9 +33,17 @@ public class OreAmplifierMenu extends AbstractContainerMenu {
         addPlayerHotbar(inv);
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-            this.addSlot(new SlotItemHandler(handler, 0, 105, 46));
-            this.addSlot(new SlotItemHandler(handler, 1, 92, 90));
-            this.addSlot(new SlotItemHandler(handler, 2, 120, 90));
+            //Inputs Slots
+            this.addSlot(new SlotItemHandler(handler, 0, 25, 53));
+            this.addSlot(new SlotItemHandler(handler, 1, 43, 53));
+            this.addSlot(new SlotItemHandler(handler, 2, 25, 70));
+            this.addSlot(new SlotItemHandler(handler, 3, 43, 70));
+
+            //Output Slots
+            this.addSlot(new SlotItemHandler(handler, 4, 115, 53));
+            this.addSlot(new SlotItemHandler(handler, 5, 133, 53));
+            this.addSlot(new SlotItemHandler(handler, 6, 115, 70));
+            this.addSlot(new SlotItemHandler(handler, 7, 133, 70));
         });
 
         addDataSlots(data);
@@ -75,7 +82,14 @@ public class OreAmplifierMenu extends AbstractContainerMenu {
     }
 
     public boolean isCrafting() {
-        return data.get(0) > 0;
+        //Check slots 0-3 for item
+        for(int i = 0; i < 4; i++){
+            if(data.get(i) > 0){
+                return true;
+            }
+        }
+
+        return false;
     }
 
 

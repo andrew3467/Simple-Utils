@@ -3,6 +3,7 @@ package net.iirc.simpleutils.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.iirc.simpleutils.SimpleUtils;
+import net.iirc.simpleutils.screen.renderer.EnergyInfoArea;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -14,6 +15,9 @@ public class OreAmplifierScreen extends AbstractContainerScreen<OreAmplifierMenu
             ResourceLocation(SimpleUtils.MOD_ID, "textures/gui/ore_amplifier.png");
 
 
+    private EnergyInfoArea energyInfoArea;
+
+
     public OreAmplifierScreen(OreAmplifierMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
     }
@@ -21,6 +25,14 @@ public class OreAmplifierScreen extends AbstractContainerScreen<OreAmplifierMenu
     @Override
     protected void init() {
         super.init();
+        assignEnergyInfoArea();
+    }
+
+    private void assignEnergyInfoArea() {
+        int x = (width / imageWidth) / 2;
+        int y = (height / imageHeight) / 2;
+
+        energyInfoArea = new EnergyInfoArea(x + 25, y + 106, menu.blockEntity.getEnergyStorage());
     }
 
     @Override
