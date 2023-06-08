@@ -11,6 +11,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -43,7 +44,7 @@ public class OreAmplifierBlockEntity extends BlockEntity implements MenuProvider
     };
 
 
-    private final ItemStackHandler itemHandler = new ItemStackHandler(3){
+    private final ItemStackHandler itemHandler = new ItemStackHandler(8){
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
