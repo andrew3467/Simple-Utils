@@ -39,16 +39,14 @@ public class OreAmplifierMenu extends AbstractContainerMenu {
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
             //Inputs Slots
-            this.addSlot(new SlotItemHandler(handler, 0, 25, 53));
-            this.addSlot(new SlotItemHandler(handler, 1, 43, 53));
-            this.addSlot(new SlotItemHandler(handler, 2, 25, 70));
-            this.addSlot(new SlotItemHandler(handler, 3, 43, 70));
+            this.addSlot(new SlotItemHandler(handler, 0, 16, 34));
+            this.addSlot(new SlotItemHandler(handler, 1, 34, 34));
 
             //Output Slots
-            this.addSlot(new SlotItemHandler(handler, 4, 115, 53));
-            this.addSlot(new SlotItemHandler(handler, 5, 133, 53));
-            this.addSlot(new SlotItemHandler(handler, 6, 115, 70));
-            this.addSlot(new SlotItemHandler(handler, 7, 133, 70));
+            this.addSlot(new SlotItemHandler(handler, 4, 94, 29));
+            this.addSlot(new SlotItemHandler(handler, 5, 111, 29));
+            this.addSlot(new SlotItemHandler(handler, 6, 94, 46));
+            this.addSlot(new SlotItemHandler(handler, 7, 111, 46));
         });
 
         addDataSlots(data);
@@ -116,7 +114,7 @@ public class OreAmplifierMenu extends AbstractContainerMenu {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 8;  // must be the number of slots you have!
+    private static final int TE_INVENTORY_SLOT_COUNT = 6;  // must be the number of slots you have!
 
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
