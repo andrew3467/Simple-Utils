@@ -3,24 +3,31 @@ package net.iirc.simpleutils.blocks.entity;
 import net.iirc.simpleutils.blocks.custom.OreAmplifierBlock;
 import net.iirc.simpleutils.networking.ModMessages;
 import net.iirc.simpleutils.networking.packet.ItemStackSyncS2CPacket;
+import net.iirc.simpleutils.screen.OreAmplifierMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.data.ForgeItemTagsProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import org.checkerframework.checker.units.qual.C;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -42,6 +49,7 @@ public class OreAmplifierBlockEntity extends BlockEntity implements MenuProvider
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
 
 
+    protected final ContainerData data;
     private int progress = 0;
     private int maxProgress = 80;
 
@@ -57,6 +65,30 @@ public class OreAmplifierBlockEntity extends BlockEntity implements MenuProvider
 
     public OreAmplifierBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.ORE_AMPLIFIER.get(), pPos, pBlockState);
+
+        this.data = new ContainerData() {
+            @Override
+            public int get(int pIndex) {
+                return switch (pIndex){
+                    case 0 -> OreAmplifierBlockEntity.this.progress;
+                    case 1 -> OreAmplifierBlockEntity.this.maxProgress;
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int pIndex, int pValue) {
+                switch (pIndex) {
+                    case 0 -> OreAmplifierBlockEntity.this.progress = pValue;
+                    case 1 -> OreAmplifierBlockEntity.this.maxProgress = pValue;
+                }
+            }
+
+            @Override
+            public int getCount() {
+                return 3;
+            }
+        };
     }
 
     @Override
@@ -98,6 +130,17 @@ public class OreAmplifierBlockEntity extends BlockEntity implements MenuProvider
 
         //Check for recipe, Check for fuel
         //Increase progress by 1, update state
+
+        if(hasRawOreInFirstSlot(pEntity)){
+
+        }else{
+            pEntity.resetProgress();
+            setChanged(level, pos, state);
+        }
+    }
+
+    private static boolean hasRawOreInFirstSlot(OreAmplifierBlockEntity pEntity) {
+        return pEntity.itemHandler.getStackInSlot(0).is(Tags.Items.RAW_MATERIALS);
     }
 
     private void resetProgress() {
@@ -113,7 +156,7 @@ public class OreAmplifierBlockEntity extends BlockEntity implements MenuProvider
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        return null;
+        return new OreAmplifierMenu(pContainerId, pPlayerInventory, this, this.data);
     }
 
     @Override

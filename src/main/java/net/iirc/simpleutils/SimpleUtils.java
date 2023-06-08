@@ -6,6 +6,10 @@ import net.iirc.simpleutils.Fluid.ModFluids;
 import net.iirc.simpleutils.blocks.ModBlocks;
 import net.iirc.simpleutils.blocks.entity.ModBlockEntities;
 import net.iirc.simpleutils.items.ModItems;
+import net.iirc.simpleutils.networking.ModMessages;
+import net.iirc.simpleutils.screen.ModMenuTypes;
+import net.iirc.simpleutils.screen.OreAmplifierScreen;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -37,6 +41,7 @@ public class SimpleUtils
         ModBlockEntities.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModItems.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
 
 
         // Register ourselves for server and other game events we are interested in
@@ -45,7 +50,9 @@ public class SimpleUtils
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
-
+        event.enqueueWork(() -> {
+            ModMessages.register();
+        });
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
@@ -55,8 +62,14 @@ public class SimpleUtils
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
+            //Fluids
             ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_SOAP_WATER.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_SOAP_WATER.get(), RenderType.translucent());
+
+
+
+            //Block GUIs
+            MenuScreens.register(ModMenuTypes.ORE_AMPLIFIER_MENU.get(), OreAmplifierScreen::new);
         }
     }
 }
