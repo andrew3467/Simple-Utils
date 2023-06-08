@@ -2,6 +2,7 @@ package net.iirc.simpleutils.screen;
 
 import net.iirc.simpleutils.blocks.ModBlocks;
 import net.iirc.simpleutils.blocks.entity.OreAmplifierBlockEntity;
+import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -17,6 +18,7 @@ public class OreAmplifierMenu extends AbstractContainerMenu {
     public final Level level;
     public final ContainerData data;
 
+
     //Constructors
     public OreAmplifierMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
         this(id, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(8));
@@ -28,6 +30,9 @@ public class OreAmplifierMenu extends AbstractContainerMenu {
         blockEntity = (OreAmplifierBlockEntity) entity;
         this.level = inv.player.level;
         this.data = data;
+
+
+
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
