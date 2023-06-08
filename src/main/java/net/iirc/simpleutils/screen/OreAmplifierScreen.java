@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class OreAmplifierScreen extends AbstractContainerScreen<OreAmplifierMenu> {
-    private static final ResourceLocation GUI_TEXURE = new
+    private static final ResourceLocation GUI_TEXTURE = new
             ResourceLocation(SimpleUtils.MOD_ID, "textures/gui/ore_amplifier.png");
 
 
@@ -39,9 +39,9 @@ public class OreAmplifierScreen extends AbstractContainerScreen<OreAmplifierMenu
     protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, GUI_TEXURE);
-        int x = (width / imageWidth) / 2;
-        int y = (height / imageHeight) / 2;
+        RenderSystem.setShaderTexture(0, GUI_TEXTURE);
+        int x = (width - imageWidth) / 2;
+        int y = (height - imageHeight) / 2;
 
         this.blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight);
 
