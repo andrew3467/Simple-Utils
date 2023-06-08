@@ -7,6 +7,7 @@ import net.iirc.simpleutils.blocks.ModBlocks;
 import net.iirc.simpleutils.blocks.entity.ModBlockEntities;
 import net.iirc.simpleutils.items.ModItems;
 import net.iirc.simpleutils.networking.ModMessages;
+import net.iirc.simpleutils.recipe.ModRecipes;
 import net.iirc.simpleutils.screen.ModMenuTypes;
 import net.iirc.simpleutils.screen.OreAmplifierScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -43,6 +44,7 @@ public class SimpleUtils
         ModItems.register(modEventBus);
         ModMenuTypes.register(modEventBus);
 
+        ModRecipes.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
