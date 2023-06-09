@@ -4,5 +4,7 @@
   "itemGroup.simpleutilstab": "Simple Utils",
   "item.simpleutils.aurora_ingot": "Aurora Ingot",
   "item.simpleutils.auroa_ingot": "Auroa Ingot",
-  "item.simpleutils.wolframite": "Wolframite"
+  "item.simpleutils.wolframite": "Wolframite",
+  "block.simpleutils.deepslate_wolframite_ore": "Deepslate Wolframite Ore",
+  "block.simpleutils.deepslate_aurora_ore": "Deepslate Aurora Ore"
 }

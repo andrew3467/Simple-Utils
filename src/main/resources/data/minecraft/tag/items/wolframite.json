@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-    "simpleutils:raw_materials/wolframite"
+    "forge:raw_materials/wolframite"
   ]
 }
