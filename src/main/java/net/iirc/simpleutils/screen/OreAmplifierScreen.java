@@ -52,7 +52,6 @@ public class OreAmplifierScreen extends AbstractContainerScreen<OreAmplifierMenu
 
     private void renderProgressArrow(PoseStack pPoseStack, int x, int y) {
         if(menu.isCrafting()) {
-            pPoseStack.mulPose(Vector3f.XP.rotation(90));
             blit(pPoseStack, x + 58, y + 43, 176, 0, 7, menu.getScaledProgress());
         }
     }

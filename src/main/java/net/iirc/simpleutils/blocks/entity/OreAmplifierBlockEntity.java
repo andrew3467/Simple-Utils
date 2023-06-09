@@ -19,6 +19,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -63,7 +64,7 @@ public class OreAmplifierBlockEntity extends BlockEntity implements MenuProvider
 
     protected final ContainerData data;
     private int progress = 0;
-    private int maxProgress = 80;
+    private int maxProgress = 10;
 
     private static final int ENERGY_REQ = 32;
 
@@ -130,11 +131,17 @@ public class OreAmplifierBlockEntity extends BlockEntity implements MenuProvider
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
+        pTag.put("inventory", itemHandler.serializeNBT());
+        pTag.putInt("ore_amplifier_progress", this.progress);
+
         super.saveAdditional(pTag);
     }
 
     @Override
     public void load(CompoundTag pTag) {
+        itemHandler.deserializeNBT(pTag.getCompound("inventory"));
+        progress = pTag.getInt("ore_amplifier_progress");
+
         super.load(pTag);
     }
 
@@ -173,11 +180,32 @@ public class OreAmplifierBlockEntity extends BlockEntity implements MenuProvider
                 .getRecipeFor(OreAmplifierRecipe.Type.INSTANCE, inventory, level);
 
         if(hasRecipe(pEntity)){
-            pEntity.itemHandler.extractItem(0, 1, false);   //Remove item from input
-            pEntity.itemHandler.setStackInSlot(2, new ItemStack(recipe.get().getResultItem().getItem(),
-                    pEntity.itemHandler.getStackInSlot(2).getCount() + 2));
+            removeInputItem(pEntity, 1);
+            insertOutputItem(pEntity, recipe.get().getResultItem().getItem(), 2);
 
             pEntity.resetProgress();
+        }
+    }
+
+    private static void removeInputItem(OreAmplifierBlockEntity pEntity, int count){
+        //Loop over input slots, back to front
+        for(int i = 1; i >= 0; i--){
+            if(pEntity.itemHandler.getStackInSlot(i).getCount() > 0){
+                pEntity.itemHandler.extractItem(i, 1, false);
+                return;
+            }
+        }
+    }
+
+    private static void insertOutputItem(OreAmplifierBlockEntity pEntity, Item item, int count) {
+        //Loop over output slots
+        for(int i = 2; i <= 5; i++){
+            //Can insert both items
+            if(pEntity.itemHandler.getStackInSlot(i).getCount() < item.getMaxStackSize() - 2){
+                pEntity.itemHandler.setStackInSlot(i, new ItemStack(item,
+                        pEntity.itemHandler.getStackInSlot(i).getCount() + 2));
+                return;
+            }
         }
     }
 
@@ -197,11 +225,11 @@ public class OreAmplifierBlockEntity extends BlockEntity implements MenuProvider
     }
 
     private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack resultItem) {
-        return inventory.getItem(1).getItem() == resultItem.getItem() || inventory.getItem(1).isEmpty();
+        return inventory.getItem(2).getItem() == resultItem.getItem() || inventory.getItem(2).isEmpty();
     }
 
     private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory) {
-        return inventory.getItem(1).getMaxStackSize() > inventory.getItem(1).getCount();
+        return inventory.getItem(5).getMaxStackSize() - 2 > inventory.getItem(5).getCount();
     }
 
     private void resetProgress() {

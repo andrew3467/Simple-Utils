@@ -19,14 +19,17 @@ public class OreAmplifierMenu extends AbstractContainerMenu {
     public final ContainerData data;
 
 
+    private static final int SLOT_COUNT = 6;
+
+
     //Constructors
     public OreAmplifierMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
-        this(id, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(8));
+        this(id, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(SLOT_COUNT));
     }
 
     public OreAmplifierMenu(int id, Inventory inv, BlockEntity entity, ContainerData data) {
         super(ModMenuTypes.ORE_AMPLIFIER_MENU.get(), id);
-        checkContainerSize(inv, 8);
+        checkContainerSize(inv, SLOT_COUNT);
         blockEntity = (OreAmplifierBlockEntity) entity;
         this.level = inv.player.level;
         this.data = data;
@@ -43,10 +46,10 @@ public class OreAmplifierMenu extends AbstractContainerMenu {
             this.addSlot(new SlotItemHandler(handler, 1, 35, 35));
 
             //Output Slots
-            this.addSlot(new SlotItemHandler(handler, 4, 94, 29));
-            this.addSlot(new SlotItemHandler(handler, 5, 111, 29));
-            this.addSlot(new SlotItemHandler(handler, 6, 94, 46));
-            this.addSlot(new SlotItemHandler(handler, 7, 111, 46));
+            this.addSlot(new SlotItemHandler(handler, 2, 94, 29));
+            this.addSlot(new SlotItemHandler(handler, 3, 111, 29));
+            this.addSlot(new SlotItemHandler(handler, 4, 94, 46));
+            this.addSlot(new SlotItemHandler(handler, 5, 111, 46));
         });
 
         addDataSlots(data);
