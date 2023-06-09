@@ -26,10 +26,10 @@ public class ModConfiguredFeatures {
             OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, ModBlocks.DEEPSLATE_WOLFRAMITE_ORE.get().defaultBlockState())));
 
     public static final RegistryObject<ConfiguredFeature<?, ?>> DEEPSLATE_AURORA = CONFIGURED_FEATURES.register("deepslate_aurora",
-            () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(OVERWORLD_DEEPSLATE_AURORA.get(),5)));
+            () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(OVERWORLD_DEEPSLATE_AURORA.get(),10)));
 
     public static final RegistryObject<ConfiguredFeature<?, ?>> DEEPSLATE_WOLFRAMITE = CONFIGURED_FEATURES.register("deepslate_wolframite",
-            () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(OVERWORLD_DEEPSLATE_WOLFRAMITE.get(),15)));
+            () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(OVERWORLD_DEEPSLATE_WOLFRAMITE.get(),6)));
 
 
 

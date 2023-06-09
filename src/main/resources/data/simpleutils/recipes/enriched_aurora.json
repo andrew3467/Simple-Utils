@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " s ",
+        "sss",
+        " s "
+    ],
+    "key": {
+        "s": {
+            "item": "simpleutils:aurora_ingot"
+        }
+    },
+    "result": {
+        "item": "simpleutils:enriched_aurora",
+        "count": 1
+    }
+}

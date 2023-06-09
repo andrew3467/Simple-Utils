@@ -17,12 +17,12 @@ public class ModPlacedFeatures {
 
     public static final RegistryObject<PlacedFeature> DEEPSLATE_AURORA_PLACED = PLACED_FEATURES.register("deepslate_aurora_placed",
             () -> new PlacedFeature(ModConfiguredFeatures.DEEPSLATE_AURORA.getHolder().get(),
-                    commonOrePlacement(5, // VeinsPerChunk
+                    commonOrePlacement(8, // VeinsPerChunk
                             HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80)))));
 
     public static final RegistryObject<PlacedFeature> DEEPSLATE_WOLFRAMITE_PLACED = PLACED_FEATURES.register("deepslate_wolframite_placed",
             () -> new PlacedFeature(ModConfiguredFeatures.DEEPSLATE_WOLFRAMITE.getHolder().get(),
-                    commonOrePlacement(8, // VeinsPerChunk
+                    commonOrePlacement(4, // VeinsPerChunk
                             HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80)))));
 
 
