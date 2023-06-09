@@ -11,19 +11,19 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.Nullable;
 
 public class OreAmplifierRecipe implements Recipe<SimpleContainer> {
     public final ResourceLocation id;
     private final ItemStack output;
+    private int outputCount;
     private final NonNullList<Ingredient> recipeItems;
 
 
-    public OreAmplifierRecipe(ResourceLocation id, ItemStack output, NonNullList<Ingredient> recipeItems){
+    public OreAmplifierRecipe(ResourceLocation id, ItemStack output, int outputCount, NonNullList<Ingredient> recipeItems){
         this.id = id;
         this.output = output;
+        this.outputCount = outputCount;
         this.recipeItems = recipeItems;
     }
 
@@ -34,7 +34,7 @@ public class OreAmplifierRecipe implements Recipe<SimpleContainer> {
             return false;
         }
 
-        return recipeItems.get(0).test(pContainer.getItem(1));
+        return recipeItems.get(0).test(pContainer.getItem(0));
     }
 
     @Override
@@ -72,6 +72,10 @@ public class OreAmplifierRecipe implements Recipe<SimpleContainer> {
         return Type.INSTANCE;
     }
 
+    private int getOutputCount() {
+        return this.outputCount;
+    }
+
     public static class Type implements RecipeType<OreAmplifierRecipe> {
         private Type() { }
         public static final Type INSTANCE = new Type();
@@ -86,7 +90,7 @@ public class OreAmplifierRecipe implements Recipe<SimpleContainer> {
 
         @Override
         public OreAmplifierRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
+            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "result"));
 
             JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
             NonNullList<Ingredient> inputs = NonNullList.withSize(1, Ingredient.EMPTY);
@@ -95,7 +99,7 @@ public class OreAmplifierRecipe implements Recipe<SimpleContainer> {
                 inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
             }
 
-            return new OreAmplifierRecipe(pRecipeId, output, inputs);
+            return new OreAmplifierRecipe(pRecipeId, output, 2, inputs);
         }
 
         @Override
@@ -107,7 +111,8 @@ public class OreAmplifierRecipe implements Recipe<SimpleContainer> {
             }
 
             ItemStack output = buf.readItem();
-            return new OreAmplifierRecipe(id, output, inputs);
+            int count = buf.readInt();
+            return new OreAmplifierRecipe(id, output, count, inputs);
         }
 
         @Override
@@ -118,6 +123,7 @@ public class OreAmplifierRecipe implements Recipe<SimpleContainer> {
                 ing.toNetwork(buf);
             }
             buf.writeItemStack(recipe.getResultItem(), false);
+            buf.writeInt(recipe.getOutputCount());
         }
     }
 }

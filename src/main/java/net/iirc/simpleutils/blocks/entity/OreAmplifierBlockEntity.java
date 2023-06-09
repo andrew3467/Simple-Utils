@@ -1,9 +1,11 @@
 package net.iirc.simpleutils.blocks.entity;
 
 import net.iirc.simpleutils.blocks.custom.OreAmplifierBlock;
+import net.iirc.simpleutils.items.ModItems;
 import net.iirc.simpleutils.networking.ModMessages;
 import net.iirc.simpleutils.networking.packet.EnergySyncS2CPacket;
 import net.iirc.simpleutils.networking.packet.ItemStackSyncS2CPacket;
+import net.iirc.simpleutils.recipe.OreAmplifierRecipe;
 import net.iirc.simpleutils.screen.OreAmplifierMenu;
 import net.iirc.simpleutils.util.ModEnergyStorage;
 import net.minecraft.core.BlockPos;
@@ -11,21 +13,19 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Containers;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
@@ -33,6 +33,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
+import java.util.Optional;
 
 public class OreAmplifierBlockEntity extends BlockEntity implements MenuProvider {
     private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(5000, 512) {
@@ -143,10 +144,17 @@ public class OreAmplifierBlockEntity extends BlockEntity implements MenuProvider
             return;
         }
 
-        //Check for recipe, Check for fuel
+        //Check for RF Levels
         //Increase progress by 1, update state
 
-        if(hasRawOreInFirstSlot(pEntity)){
+        if(hasRecipe(pEntity)){
+            pEntity.progress++;
+            //extractEnergy(pEntity);
+            setChanged(level, pos, state);
+
+            if(pEntity.progress >= pEntity.maxProgress){
+                craftItem(pEntity);
+            }
 
         }else{
             pEntity.resetProgress();
@@ -154,8 +162,46 @@ public class OreAmplifierBlockEntity extends BlockEntity implements MenuProvider
         }
     }
 
-    private static boolean hasRawOreInFirstSlot(OreAmplifierBlockEntity pEntity) {
-        return pEntity.itemHandler.getStackInSlot(0).is(Tags.Items.RAW_MATERIALS);
+    private static void craftItem(OreAmplifierBlockEntity pEntity) {
+        Level level = pEntity.level;
+        SimpleContainer inventory = new SimpleContainer(pEntity.itemHandler.getSlots());
+        for (int i = 0; i < pEntity.itemHandler.getSlots(); i++) {
+            inventory.setItem(i, pEntity.itemHandler.getStackInSlot(i));
+        }
+
+        Optional<OreAmplifierRecipe> recipe = level.getRecipeManager()
+                .getRecipeFor(OreAmplifierRecipe.Type.INSTANCE, inventory, level);
+
+        if(hasRecipe(pEntity)){
+            pEntity.itemHandler.extractItem(0, 1, false);   //Remove item from input
+            pEntity.itemHandler.setStackInSlot(2, new ItemStack(recipe.get().getResultItem().getItem(),
+                    pEntity.itemHandler.getStackInSlot(2).getCount() + 2));
+
+            pEntity.resetProgress();
+        }
+    }
+
+    private static boolean hasRecipe(OreAmplifierBlockEntity pEntity) {
+        Level level = pEntity.level;
+        SimpleContainer inventory = new SimpleContainer(pEntity.itemHandler.getSlots());
+        for (int i = 0; i < pEntity.itemHandler.getSlots(); i++) {
+            inventory.setItem(i, pEntity.itemHandler.getStackInSlot(i));
+        }
+
+        Optional<OreAmplifierRecipe> recipe = level.getRecipeManager()
+                .getRecipeFor(OreAmplifierRecipe.Type.INSTANCE, inventory, level);
+
+        return recipe.isPresent() &&
+                canInsertAmountIntoOutputSlot(inventory) &&
+                canInsertItemIntoOutputSlot(inventory, recipe.get().getResultItem());
+    }
+
+    private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack resultItem) {
+        return inventory.getItem(1).getItem() == resultItem.getItem() || inventory.getItem(1).isEmpty();
+    }
+
+    private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory) {
+        return inventory.getItem(1).getMaxStackSize() > inventory.getItem(1).getCount();
     }
 
     private void resetProgress() {

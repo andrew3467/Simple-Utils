@@ -1,0 +1,12 @@
+{
+  "type": "simpleutils:ore_amplifying",
+  "ingredients": [
+    {
+      "item": "minecraft:raw_iron"
+    }
+  ],
+  "result": {
+    "item": "minecraft:iron_ingot",
+    "count": 2
+  }
+}

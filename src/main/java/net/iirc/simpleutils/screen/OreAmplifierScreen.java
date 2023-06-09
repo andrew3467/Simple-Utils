@@ -2,6 +2,7 @@ package net.iirc.simpleutils.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
 import net.iirc.simpleutils.SimpleUtils;
 import net.iirc.simpleutils.screen.renderer.EnergyInfoArea;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -46,6 +47,14 @@ public class OreAmplifierScreen extends AbstractContainerScreen<OreAmplifierMenu
         this.blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight);
 
         //TODO: Render progress arrow
+        //renderProgressArrow(pPoseStack, x, y);
+    }
+
+    private void renderProgressArrow(PoseStack pPoseStack, int x, int y) {
+        if(menu.isCrafting()) {
+            pPoseStack.mulPose(Vector3f.XP.rotation(90));
+            blit(pPoseStack, x + 58, y + 43, 176, 0, 7, menu.getScaledProgress());
+        }
     }
 
     @Override
