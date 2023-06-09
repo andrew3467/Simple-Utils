@@ -201,10 +201,15 @@ public class OreAmplifierBlockEntity extends BlockEntity implements MenuProvider
         //Loop over output slots
         for(int i = 2; i <= 5; i++){
             //Can insert both items
-            if(pEntity.itemHandler.getStackInSlot(i).getCount() < item.getMaxStackSize() - 2){
+            if(pEntity.itemHandler.getStackInSlot(i).getCount() < item.getMaxStackSize() - 1){
                 pEntity.itemHandler.setStackInSlot(i, new ItemStack(item,
-                        pEntity.itemHandler.getStackInSlot(i).getCount() + 2));
+                        pEntity.itemHandler.getStackInSlot(i).getCount() + count));
                 return;
+            }
+            if(pEntity.itemHandler.getStackInSlot(i).getCount() == item.getMaxStackSize() - 1){
+                pEntity.itemHandler.setStackInSlot(i, new ItemStack(item,
+                        pEntity.itemHandler.getStackInSlot(i).getCount() + 1));
+                count--;
             }
         }
     }
