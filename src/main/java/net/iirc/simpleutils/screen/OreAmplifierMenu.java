@@ -39,8 +39,8 @@ public class OreAmplifierMenu extends AbstractContainerMenu {
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
             //Inputs Slots
-            this.addSlot(new SlotItemHandler(handler, 0, 16, 34));
-            this.addSlot(new SlotItemHandler(handler, 1, 34, 34));
+            this.addSlot(new SlotItemHandler(handler, 0, 17, 35));
+            this.addSlot(new SlotItemHandler(handler, 1, 35, 35));
 
             //Output Slots
             this.addSlot(new SlotItemHandler(handler, 4, 94, 29));
