@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WEW",
+    "EOE",
+    "AEA"
+  ],
+  "key": {
+    "W" : {
+      "item": "simpleutils:wolframite"
+    },
+    "E": {
+      "item": "simpleutils:enriched_aurora"
+    },
+    "O": {
+      "item": "simpleutils:enriched_wolframite"
+    },
+    "A": {
+      "item": "simpleutils:aurora_ingot"
+    }
+  },
+  "result": {
+    "item": "simpleutils:ore_amplifier"
+  }
+}

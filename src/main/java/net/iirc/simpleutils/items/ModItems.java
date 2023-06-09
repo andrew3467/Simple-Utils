@@ -20,6 +20,13 @@ public class ModItems {
             () -> new BucketItem(ModFluids.SOURCE_SOAP_WATER,
                     new Item.Properties().tab(ModCreativeModeTab.SIMPLE_UTILS_TAB).craftRemainder(Items.BUCKET).stacksTo(1)));
 
+        public static final RegistryObject<Item> ENRICHED_AURORA = ITEMS.register("enriched_aurora",
+                () -> new Item(new Item.Properties().setNoRepair().tab(ModCreativeModeTab.SIMPLE_UTILS_TAB)));
+
+
+    public static final RegistryObject<Item> ENRICHED_WOLFRAMITE = ITEMS.register("enriched_wolframite",
+            () -> new Item(new Item.Properties().setNoRepair().tab(ModCreativeModeTab.SIMPLE_UTILS_TAB)));
+
     public static final RegistryObject<Item> AURORA_INGOT = ITEMS.register("aurora_ingot",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.SIMPLE_UTILS_TAB)));
 

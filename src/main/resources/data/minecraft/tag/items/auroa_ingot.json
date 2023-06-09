@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-    "simpleutils:raw_materials/aurora_ingot"
+    "forge:raw_materials/aurora_ingot"
   ]
 }

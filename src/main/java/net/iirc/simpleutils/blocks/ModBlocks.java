@@ -35,7 +35,11 @@ public class ModBlocks {
     public static final RegistryObject<LiquidBlock> SOAP_WATER_BLOCK = BLOCKS.register("soap_water_block",
             () -> new LiquidBlock(ModFluids.SOURCE_SOAP_WATER, BlockBehaviour.Properties.copy(Blocks.WATER)));
 
+    public static final RegistryObject<Block> DEEPSLATE_AURORA_ORE =
+            registerBlock("deepslate_aurora_ore", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).strength(6f).requiresCorrectToolForDrops()), ModCreativeModeTab.SIMPLE_UTILS_TAB);
 
+    public static final RegistryObject<Block> DEEPSLATE_WOLFRAMITE_ORE =
+            registerBlock("deepslate_wolframite_ore", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).strength(6f).requiresCorrectToolForDrops()), ModCreativeModeTab.SIMPLE_UTILS_TAB);
     public static void register(IEventBus eventBus){
         BLOCKS.register(eventBus);
     }
