@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+      "simpleutils:deepslate_aurora_ore",
+      "simpleutils:deepslate_wolframite_ore"
+    ]
+}

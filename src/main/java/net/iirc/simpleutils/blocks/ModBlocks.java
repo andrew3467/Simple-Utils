@@ -45,6 +45,8 @@ public class ModBlocks {
             () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE)
                     .strength(2f).requiresCorrectToolForDrops(),
                     UniformInt.of(3, 7)), ModCreativeModeTab.SIMPLE_UTILS_TAB);
+
+
     public static void register(IEventBus eventBus){
         BLOCKS.register(eventBus);
     }
