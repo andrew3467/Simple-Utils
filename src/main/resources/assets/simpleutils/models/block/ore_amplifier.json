@@ -3,7 +3,7 @@
 	"parent": "ore_amplifier",
 	"texture_size": [64, 64],
 	"textures": {
-		"1": "BlockBench Projects:ore_amplifier"
+		"1": "simpleutils:block/ore_amplifier"
 	},
 	"elements": [
 		{

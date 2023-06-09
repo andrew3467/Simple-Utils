@@ -47,6 +47,12 @@ public class ModBlocks {
                     UniformInt.of(3, 7)), ModCreativeModeTab.SIMPLE_UTILS_TAB);
 
 
+    public static final RegistryObject<Block> DEEPSLATE_PNEUMONIA_ORE = registerBlock("deepslate_pneumonia_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(6f).requiresCorrectToolForDrops(),
+                    UniformInt.of(3, 7)), ModCreativeModeTab.SIMPLE_UTILS_TAB);
+
+
     public static void register(IEventBus eventBus){
         BLOCKS.register(eventBus);
     }

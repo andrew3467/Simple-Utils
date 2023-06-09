@@ -8,5 +8,6 @@
   "block.simpleutils.deepslate_wolframite_ore": "Deepslate Wolframite Ore",
   "block.simpleutils.deepslate_aurora_ore": "Deepslate Aurora Ore",
   "item.simpleutils.enriched_aurora": "Enriched Aurora",
-  "item.simpleutils.enriched_wolframite": "Enriched Wolframite"
+  "item.simpleutils.enriched_wolframite": "Enriched Wolframite",
+  "item.simpleutils.deepslate_pneumonia_ore": "Deepslate Pneumonia Ore"
 }
