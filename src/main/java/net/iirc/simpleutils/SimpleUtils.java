@@ -10,6 +10,8 @@ import net.iirc.simpleutils.networking.ModMessages;
 import net.iirc.simpleutils.recipe.ModRecipes;
 import net.iirc.simpleutils.screen.ModMenuTypes;
 import net.iirc.simpleutils.screen.OreAmplifierScreen;
+import net.iirc.simpleutils.world.feature.ModConfiguredFeatures;
+import net.iirc.simpleutils.world.feature.ModPlacedFeatures;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -43,6 +45,8 @@ public class SimpleUtils
         ModBlocks.register(modEventBus);
         ModItems.register(modEventBus);
         ModMenuTypes.register(modEventBus);
+        ModConfiguredFeatures.register(modEventBus);
+        ModPlacedFeatures.register(modEventBus);
 
         ModRecipes.register(modEventBus);
 
